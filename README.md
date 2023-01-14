@@ -9,7 +9,7 @@ It is highly recommended to use a virtual environment, using Python version at l
 ```
 virtualenv -p python3 venv
 source venv/bin/activate
-pip install django
+pip install -r requirements.txt
 ```
 
 You can then create the database with the following command:
