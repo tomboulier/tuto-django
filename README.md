@@ -1,5 +1,7 @@
 # Getting started with Django
 
+[![Django CI](https://github.com/tomboulier/tuto-django/actions/workflows/django.yml/badge.svg)](https://github.com/tomboulier/tuto-django/actions/workflows/django.yml)
+
 This project is built by following [this tutorial](https://docs.djangoproject.com/en/4.1/intro/)
 in the official webpage of [Django](https://www.djangoproject.com/).
 
