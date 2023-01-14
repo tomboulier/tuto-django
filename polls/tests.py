@@ -21,6 +21,7 @@ class QuestionIndexViewTests(TestCase):
 	"""Testing views"""
 
 	def get_polls_index(self):
+		"""Will be used several times below"""
 		return self.client.get(reverse("polls:index"))
 
 	def test_no_questions(self):
@@ -78,7 +79,35 @@ class QuestionIndexViewTests(TestCase):
 		self.assertQuerysetEqual(
 			response.context['latest_question_list'],
 			[question_2, question_1])
+
+
+class QuestionDetailViewTests(TestCase):
+	def get_detail_view_response(self, question):
+		"""
+		Will be used several times below (DRY principles).
+		Return the response when getting the detail view of
+		a given question.
+		"""
+		url = reverse("polls:detail", kwargs={'pk': question.id})
+		return self.client.get(url)
 		
+	def test_future_question(self):
+		"""
+		The detail view of a question with a pub_date in the future
+		returns a 404 not found.
+		"""
+		future_question = create_question(question_text="future question", days=0.1)
+		response = self.get_detail_view_response(future_question)
+		self.assertEqual(response.status_code, 404)
+
+	def test_past_question(self):
+		"""
+		The detail view of a question with a pub_date in the past
+		displays the question's text.
+		"""
+		text_to_display = "text to display"
+		old_question = create_question(question_text=text_to_display, days=-0.1)
+		response = self.get_detail_view_response(old_question)
 
 
 class QuestionModelTests(TestCase):
