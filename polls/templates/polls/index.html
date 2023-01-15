@@ -6,14 +6,29 @@ Accueil |
 
 {% block content %}
 
-{% if latest_question_list %}
-<ul>
-{% for question in latest_question_list %}
-    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-{% endfor %}
-</ul>
-{% else %}
-<p>No polls are available.</p>
-{% endif %}
+
+<div class="card">
+  
+  <div class="card-header">
+    <h1 class="text-center">Poll App</h1>
+  </div>
+
+  {% if latest_question_list %}
+
+    <div class="list-group">
+    {% for question in latest_question_list %}
+      <a href="{% url 'polls:detail' question.id %}" class="list-group-item list-group-item-action">{{ question.question_text }}</a>
+    {% endfor %}
+    </div>
+
+  {% else %}
+    
+    <div class="alert alert-warning" role="alert">No polls are available.</div>
+  
+  {% endif %}
+
+</div>
+
+
 
 {% endblock content %}
